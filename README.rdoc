@@ -63,7 +63,41 @@
 16. Make body prettier:
 	a) wrap content in home.html.erb into class=panel
 	b) add bootstrap buttons
-	c) customize bootstrap default scss variables. Achtung: diese muessen in customize.css.scss unbedingt vor dem Import der Bootstrap sprockets sein!
+	c) customize bootstrap default scss variables. Achtung: diese muessen in customize.css.scss unbedingt vor dem Import der Bootstrap sprockets sein! Achtung 2: LESS is with @ (bootstrap) and we write in SASS with $ => customized bootstrap variables in our files need to be written with a $
+	d) fonts: @import from google fonts, and then call on it via $-sign and less-variable as defined by bootstrap in the customize-section. 
+	e) Achtung: manchmal werden bei den Bootstrap-Variablen mehrere ineinander verschachtelt, z.B. bei brand-primary (statt einer Farbe wird das spezifiziert)
+	f) Als wir //centralize brand gemacht haben in custom.scss, da ging dann zuerst bei mobile responsive der Toggle-Button nicht mehr. Aber dann als wir toggle auf z-index = 1 gesetzt haben, ging es wieder.
+	g) adding custom class "red" and class "center"
+	h) fix navbar to top => what happens first: navbar overlaps content (that is normal). to fix it we just have to add padding to top of body in the height of the navbar.
+	i) use center-class to center panel in home.html.erb
+	j) add something to scale viewport to retina: http://www.quirksmode.org/mobile/metaviewport/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 
