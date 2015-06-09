@@ -1,28 +1,85 @@
-== README
+================================================
+== Me doing our codereltics tutorial on a Mac ==
+================================================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. mkdir xxx
+2. rails new xxx
+3. open in subl .
+4. test 'rails s' on localhost:3000
+5. rails g controller sites
+6. a) def index end into sites-controller
+   b) create index.html.erb
+   c) root 'sites#index'
+7. a) RVM --> install rvm locally (1 file), check: rvm gemset list_all
+   b) POW and Anvil --> pow lets you use native domains like xxxx.dev. simulates real-life domain behavior like running multiple apps in parallel and displaying subdomains such as blog.xxxx.dev. Anvil = pow for lazy people. get it running by setting up symlinks. This is how to create symlinks:
+   	$ cd ~/.pow
+	$ ln -s ~/Projects/myapp (or whatever your app-path is after ~ in CL)
+8. Git:
+   Create Account.
+   brew install git
+   Connect local machine to online account: 
+   		git config --global user.name "YOUR-USERNAME"
+		git config --global user.email YOUR-EMAIL-ADDRESS
+		git config --global credential.helper cache
+   Set up github repo for app: while cd'd in xxx-folder:
+   		touch README.md
+		git init
+		git add README.md
+		git commit -m "first commit"
+		git remote add origin git@github.com:MiriamNeubauer/pinmazing.git
+		git push -u origin master // git pull
+	Work in seperate branch to start:
+		git checkout -b pages
+9. Weiter gehts:
+	rails generate controller Pages home imprint (home and imprint are views)
+	(just example: rails destroy controller Pages home imprint)
+	In routes: Pinmazing::Application.routes.draw do
+  		get "pages/home"
+  		get "pages/imprint"
+	  end
+	Customize file: Pages > home.html.erb
+	Adjust routes root to pages#home
+	Add contact-page in routes and views plus action in the controller
+10. Playing around:
+	<%= Time.now.strftime ("%m/%d/%Y") %>
+	<%= link_to "Home", root_path %>
+	<%= link_to "Imprint", imprint_path %>
+11. Every route has a path method that can be called by extending the 		prefix with "_path", e.g. "pages_contact_path" will redirect to 		"pages#contact".
+12. Make code pretty / DRY by using partials for the header and footer (instead of just putting it the duplicate code out	of individual files and into application.html.erb, by naming the files with underscores)
+13. Bootstrap getbootstrap.com / foundation / ionicframework for mobile: CSS, JS for dynamics and customize-option for colors/spacing etc. . Searcj "navbar" => alls SCSS are customizable
+	a) clean up gemfile by structuring comments to the right
+	b) Ruby: install Bootstrap via gem instead of downloading, via https://github.com/twbs/bootstrap-sass (saas is an extension of css, css with superpowers)
+	c) bundle
+	d) create custom.css.scss to include the installed bootstrap there via @import "bootstrap-sprockets";
+	d) require bootstrap sprockets in application.js
+14. Wrap yield into div with class container
+15. Navigation:
+	a) copy first navbar from boostrap. info: navbar-header is needed for responsiveness-reasons
+	b) customize it: 
+		- replace <a> to brand link to <%= link_to %> while keeping the same class
+		- put contact, imprint into footer
+		- footer: copy navbar but take out mobile-responsive part
+		- attention in footer (and nav in general): format needs to match bootstrap-standard, e.g. <ul> in navbar needs to be followed by <li> <a> bzw. <%= link_to otherwise it won't be displayed correctly. e.g. if I leave out the link-to part in the footer before "made with love", it will be scrooched to the upper side instead of centered.
+16. Make body prettier:
+	a) wrap content in home.html.erb into class=panel
+	b) add bootstrap buttons
+	c) customize bootstrap default scss variables. Achtung: diese muessen in customize.css.scss unbedingt vor dem Import der Bootstrap sprockets sein!
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+	
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

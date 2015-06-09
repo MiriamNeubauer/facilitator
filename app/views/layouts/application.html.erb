@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PinmazingMcn</title>
+  <title>Pinmazing Miriam Claudia Neubauer</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<h3> this is my preloaded header with 3 tabs: Home, Upload, Profile</h3>
-<%= yield %>
+<%= render 'layouts/header' %>
+
+<div class="container">
+	<%= yield %>
+</div>
+
+<%= render 'layouts/footer' %>
 
 </body>
 </html>
