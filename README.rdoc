@@ -78,7 +78,8 @@
 	d) create heroku app 'heroku create pinmazing-mcn'
 	e) move sqlite-gem to development, and group the gems
 	f) bundle install BUT without the production gems because installing PG on machine can be hassle (plus we do not need it) --> 'bundle install --without production'
-	g) 
+	g) rake assets:precompile RAILS_ENV=production
+	h) push to heroku
 
 
 
