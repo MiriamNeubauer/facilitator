@@ -71,6 +71,14 @@
 	h) fix navbar to top => what happens first: navbar overlaps content (that is normal). to fix it we just have to add padding to top of body in the height of the navbar.
 	i) use center-class to center panel in home.html.erb
 	j) add something to scale viewport to retina: http://www.quirksmode.org/mobile/metaviewport/
+17. Heroku-launch:
+	a) if not done yet: install Heroku toolbelt
+	b) 'heroku login' in the console
+	c) 'heroku keys:add' (do only once for your system)
+	d) create heroku app 'heroku create pinmazing-mcn'
+	e) move sqlite-gem to development, and group the gems
+	f) bundle install BUT without the production gems because installing PG on machine can be hassle (plus we do not need it) --> 'bundle install --without production'
+	g) 
 
 
 
