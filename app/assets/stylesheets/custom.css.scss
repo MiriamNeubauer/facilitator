@@ -25,7 +25,7 @@ $brand-primary:					#c0392b;
 // center navbar
 .navbar-brand {
 	font-weight: bold;
-	position: absolute; //not in relation to anything
+	position: absolute; //absolute in relation to the whole screen, and not in relation to any containers or anything
 	width: 100%; 
 	left: 0;
 	text-align: center;
@@ -40,12 +40,12 @@ $brand-primary:					#c0392b;
 	font-weight: bold;
 	color: #c0392b !important; //important means 
 	//it is dominant to any style coming from somewhere else 
-	// like from a bootstrap standard
+	// like from a bootstrap standard. can't be overwritten.
 }
 
 // helper class to center stuff
 .center { text-align: center;}
 
-.body {
+body {
 	padding-top: 50px; //height of navbar
 }
