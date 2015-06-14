@@ -80,6 +80,61 @@
 	f) bundle install BUT without the production gems because installing PG on machine can be hassle (plus we do not need it) --> 'bundle install --without production'
 	g) rake assets:precompile RAILS_ENV=production
 	h) push to heroku
+18. Domain Hosters: he uses Dnsimple.com
+	a) added own domain in heroku and on united domains dns forwarding
+19. Using Devise for authentication: https://github.com/plataformatec/devise
+	a) add gem'devise' to gemfile. bundle install
+	b) as told 
+	c) as told in CL:
+		1)  add to development.rb at bottom before end: 
+		    # required for devise
+  			config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  		2) add to production.rb before end:
+  			# required for heroku and devise. I used pinmazing, as this is my domain. Set it to your Domain as soon as you know it. For example, you could use your heroku address: xyz.herokuapp.com
+  			config.action_mailer.default_url_options = { :host => 'pinmazing.com' }
+  		3) set flash messages in application.html.eb by adding this before yield and into the container:
+  			<% flash.each do |name, msg| %>
+			<%= content_tag(:div, msg, class: "alert alert-info") %>
+			<% end %>
+		4) precompiling assets not needed in Rails 4 anymore so we skip that
+		5) rails g devise:views to get the templates
+			=> passwords/new means reset password
+			=> sessions/new means Login
+			=> registrations/new means Signup
+		6) Adding models and database
+			a) rails generate devise user (rails destroy devise user), rake db:migrate [rake is a task manager. always restart server after migration.]
+			b) look at schema.rb
+20. Set up Signup and Login views
+	a) devise added routes for that automatically. rake routes
+	b) We will use 2 of the routes for sign up and log in. Guess which?
+
+	new_user_session_path
+	new_user_registration_path
+
+	To create an area only for users that are signed in, we use some of the devise helpers and controller filters:
+
+	user_signed_in?
+
+	Add that around content of home.html.erb:
+		<% if !user_signed_in? %>
+		<% end %>
+	c) add routes to _header.html.erb, as well as if-clause for what the user sees depending on whether he is signed in or not
+21. Adding name to User-model
+	a) rails g migration AddNameToUsers name:string
+	   rake db:migrate
+	b) in application_controller.rb (line 6-10): We have to tell devise that "name" is permitted for signing up and also editing your account. If you don't do that, the typed in name will not be saved.
+22. User.rb - make user management views prettier
+	a) Sign up @app/views/devise/registrations/new.html.erb: 
+		1) wrap everything in a panel
+		2) put panel-heading class around heading, and body into div with class panel-body, as well as panel-footer
+		3) put each field into class "form-group" which makes it that nice box with rounded corners. and add class "form-control" to add nice spacing to that new box.
+	b) do the same for @app/views/devise/registrations/edit.html.erb
+	c) edit @app/views/devise/sessions/new.html.erb in same way
+	d) edit @app/views/devise/passwords/new.html.erb in same way
+	e) edit @app/views/devise/passwords/edit.html.erb in same way
+	f) rake assets:precompile RAILS_ENV=production, git push heroku master, heroku run rake db:migrate
+
+
 
 
 

@@ -75,4 +75,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # required for heroku and devise. I used pinmazing, as this is my domain. Set it to your Domain as soon as you know it. For example, you could use your heroku address: xyz.herokuapp.com
+  config.action_mailer.default_url_options = { :host => 'pitchmatters.com' }
 end
