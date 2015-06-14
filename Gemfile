@@ -10,6 +10,8 @@ gem 'turbolinks'								# Turbolinks makes following links in your web applicati
 gem 'jbuilder', '~> 2.0'						# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'bootstrap-sass', '~> 3.3.4'				#Bottstrap frontend framework to make page pretty
 gem 'sass-rails', '~> 4.0.3'					# Use SCSS for stylesheets
+gem 'autoprefixer-rails'
+gem 'devise'
 
 group :development, :test do
 	gem 'sqlite3'								# Use sqlite3 as the database for Active Record
@@ -22,7 +24,7 @@ group :production do
 end
 
 group :doc do
-	gem 'sdoc', '~> 0.4.0'						# bundle exec rake doc:rails generates the API under doc/api.
+	gem 'sdoc', require: false					# bundle exec rake doc:rails generates the API under doc/api.
 end
 # gem 'bcrypt', '~> 3.1.7'						# Use ActiveModel has_secure_password
 
