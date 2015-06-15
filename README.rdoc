@@ -123,7 +123,7 @@
 	a) rails g migration AddNameToUsers name:string
 	   rake db:migrate
 	b) in application_controller.rb (line 6-10): We have to tell devise that "name" is permitted for signing up and also editing your account. If you don't do that, the typed in name will not be saved.
-22. User.rb - make user management views prettier
+22. User.rb - make user management views prettier:
 	a) Sign up @app/views/devise/registrations/new.html.erb: 
 		1) wrap everything in a panel
 		2) put panel-heading class around heading, and body into div with class panel-body, as well as panel-footer
@@ -133,8 +133,79 @@
 	d) edit @app/views/devise/passwords/new.html.erb in same way
 	e) edit @app/views/devise/passwords/edit.html.erb in same way
 	f) rake assets:precompile RAILS_ENV=production, git push heroku master, heroku run rake db:migrate
+23. Build the Logic around Users and Pins:
+	Looking at Facebook, you find a lot of "resources": Images in general are a resource. They can be created, shown, edited, and deleted. Same is true in general for messages, users, your feed, videos, and so on. Looking at Twitter, tweets and users would also be resources each.
+	For Pinterest and our web page, we have users and pins. Later, we will also have comments as a resource. Basically, whatever "thing/feature" you have in mind that should be possible to be created, read, updated, and destroyed you talk about a resource.
 
+	In tech talk, that is also called CRUD. 'C'reate, 'R'ead, 'U'pdate, and 'D'estroy.
 
+	To generate a resource, Rails has a pretty cool concept called "scaffolding" which helps us to generate resource with a single command.
+	To creat a resource, we need a model, views and a controller including the CRUD methods like create a pin, read/show a pin, update a pin and delete a pin.
+	"A scaffold in Rails is a full set of model, database migration for that model, controller to manipulate it, views to view and manipulate the data, and a test suite for each of the above."
+
+	a) Resources in DB: USERS, PINS, and later: COMMENTS <-- CRUD on them. 
+	--> rails g -h (see all commands possible with generatie-action)
+	=> rails g scaffold Pin description:string
+	--> error told me to do: rake db:migrate RAILS_ENV=development
+	--> a look at http://pinmazing-mcn.dev/pins (local pins-site) shows different layout b/c of the stylesheets that were auto-added by the scaffold, c.f. scaffolds.css.scss
+	--> too many files were auto-generated during the scaffold
+	--> need to remove some
+	--> but first go again to http://pinmazing-mcn.dev/pins and create some pins and plaz around with it 
+	=> look at how URL changes -> do you get the pattern yet?. do rake routes to see.
+	e.g.: "CL:To give an example, localhost:3000/pins/1/edit will call the edit action on the controller which renders the edit.html.erb in the views/pins. Based on your input there, the controller interprets your data and passes your input via the model to the database."
+	b) "CL: Build out the logic for the Pins controller
+
+	Scaffolding is very helpful when you are starting with Rails. Later you will build your resources yourself. Why?
+
+	Scaffolds create a lot of code in the controller that we do not need and which looks pretty crazy right now. Let's delete code that we will not need to focus on understanding the important parts of the Pins-controller:
+
+	- delete JSON files 
+	- What is that and why dont we need it?
+	- simplify the controller and also delete the JSON code"
+	=> deleted app/views/pins/index.json.jbuilder
+	=> deleted app/views/pins/show.json.jbuilder, we do not need those files. They are only confusing at the moment.
+	c) added some if-else statements in the pins_controller.rb
+	d) Responders
+		--> explanation of Responders in rails: http://asciicasts.com/episodes/224-controllers-in-rails-3
+		--> "How does the respond_with method work? For a simple GET request like index it looks for a view file to render for the appropriate MIME type, such as an .html.erb file and will render it. If respond_with fails to find a view file then it will try to call a method like to_xml or to_json to render the object that was passed in the appropriate format."
+	e) Edit _form.html.erb to include bootstrap-styling
+24. CONNECT USERS TO THEIR RESPECTIVE PINS (Currently: anyone can access and create pins. Let's change that to only registered people to be able to create pins.)
+	a) First of all, we have to connect users and pins, because pins can be created and deleted by anyone. Right now, your app does not know a pin belongs to a user. It is rather like: "oh, there are users and also there are pins", unaware of any connection.
+	We have to teach our app next that there is a connection, but wait...What type of a connection is it?
+
+	Resources can have 6 different types of relationships, let's go through them one by one.
+
+	belongs_to, has_one, .... show all 6 types on rails basics page
+
+	To define associations, you have to keep always 2 steps in mind:
+
+	1. define the type of associations in your models
+
+	2. tell your database that there is a connection by doing a migration
+	=> in MODEL user.rb and pin.rb, create the relation
+	=> rails generate migration AddUserIdToPins user_id:integer:index
+	=> rake db:migrate
+
+	b) check Commands in the Rails console:
+		> pin = Pin.first
+		> pin # will show you the first pin, as you just put it in that variable
+		> pin.user_id = 1
+		> pin.save
+		> user = User.first 
+		> user.pins
+	The cool thing is that we have the following associations now set up:
+		user.pins
+		pin.user
+	c) Adjust the frontend views to reflect the backend associations
+
+	So far, we only did the connection between users and pins in the console. This is not reflected in the app yet. We do this by updating our controller and views.
+
+	Devise helps us here with a method called "current_user". "Current_user" gives us the user that initiated the controller action.
+	=> in pins_controller.rb: 
+		=> in def new end: instead of @pin = Pin.new, it needs to be @pin = current_user.pins.build
+		=> same in def create end
+		--> pin.user and user.pins works NOW!
+		=> add new method def correct_user end into private-methods-section
 
 
 
