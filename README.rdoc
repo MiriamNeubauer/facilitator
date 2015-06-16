@@ -206,6 +206,32 @@
 		=> same in def create end
 		--> pin.user and user.pins works NOW!
 		=> add new method def correct_user end into private-methods-section
+	=> precompiled, pushed to git and heroku; had to add config.secret_key into devise.rb somewhere in the process
+	=> added :image to permitted-params in pins_controller
+	d) Update the pins view: app/views/pins/index.html.erb
+		=> <%= pin.user.name if pin.user %>
+	e) Let's make sure that only people that created a pin can change and delete a pin. And also that pins can only be created when logged in.
+	=> Add devise User authentication so that you have to be logged in to create pins: app/controllers/pins_controller.rb: before_action :authenticate_user!, except: [:index, :show]
+	Check to create a pin now at localhost:3000.
+	f) Let's go one step further and only show the "edit" and "destroy" links when the current_user is also the creator of the pin.
+	=> Check if user belongs to pin: app/views/pins/index.html.erb: added if-statement in loop-block
+	=> Check if user belongs to pin: app/views/pins/show.html.erb: wrapped Edit-link into if-statement
+	=> Check if user is signed in to create pin: app/views/pins/index.html.erb: wrapped link to New-Pin in footer into an if-statement
+	=> What if someone types in manually a pin#edit url and wants to hack it. We can add another before_action before editing or destroying a pin to check for the correct user. We check if the pins really belongs to the current user by writing a method that calls the pin the user is looking at through the current user. If the pin is not found, itmeans that the pin does not belong to the correct_user. If that is the case, we send the user a notice and redirect.
+		=> Add correct_user method: app/controllers/pins_controller.rb: 
+		before_action :correct_user, only: [:edit, :update, :destroy]
+		[...]
+		private
+		[...]
+		def correct_user
+ 		 	@pin = current_user.pins.find_by(id: params[:id])
+  			redirect_to pins_path, notice: "Not authorized to edit this pin" if @pin.nil?
+		end
+25. IMAGE-UPLOAD
+
+WHY does PG on Heroku not work???
+
+TOOLTIPS???
 
 
 

@@ -1,6 +1,7 @@
 class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   respond_to :html, :xml #answer with xml in addition to html to everythign it responds to
 
   def index
@@ -60,6 +61,6 @@ class PinsController < ApplicationController
 
     #Never trust parameter from the scary Internet, only allow the whitelist through.
     def pin_params
-      params.require(:pin).permit(:description)
+      params.require(:pin).permit(:description, :image)
     end
 end

@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 
-
 gem 'rails', '4.1.8'							# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'uglifier', '>= 1.3.0'						# Use Uglifier as compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.0.0'					# Use CoffeeScript for .js.coffee assets and views
@@ -12,14 +11,13 @@ gem 'bootstrap-sass', '~> 3.3.4'				#Bottstrap frontend framework to make page p
 gem 'sass-rails', '~> 4.0.3'					# Use SCSS for stylesheets
 gem 'autoprefixer-rails'
 gem 'devise'
+gem 'pg'
 
 group :development, :test do
-	gem 'sqlite3'								# Use sqlite3 as the database for Active Record
 	gem 'spring'								# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 end
 
 group :production do
-	gem 'pg'									#use Postgres in production
 	gem 'rails_12factor'						#we need that for pushes to heroku
 end
 
