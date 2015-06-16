@@ -6,7 +6,7 @@ default: &default
 development:
  adapter: postgresql
  host: localhost
- database: pinmazing_development
+ database: pitchmatters_development
  pool: 5
  timeout: 5000
 
@@ -16,13 +16,13 @@ development:
 test:
   adapter: postgresql
   host: localhost
-  database: pinmazing_test
+  database: pitchmatters_test
   pool: 5
   timeout: 5000
 
 production:
   adapter: postgresql
   host: localhost
-  database: pinmazing_production
+  database: pitchmatters_production
   pool: 5
   timeout: 5000
