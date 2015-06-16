@@ -233,6 +233,8 @@ WHY does PG on Heroku not work???
 
 TOOLTIPS???
 
+"Also, remember to commit your changes before trying to push to Heroku, because you are pushing the master branch, not the local code."
+
 
 
 
