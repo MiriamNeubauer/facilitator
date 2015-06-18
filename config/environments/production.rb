@@ -1,4 +1,13 @@
 Rails.application.configure do
+  config.action_mailer.default_url_options = { :host => 'pitchmatters.com' }
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -77,13 +86,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # required for heroku and devise. I used pinmazing, as this is my domain. Set it to your Domain as soon as you know it. For example, you could use your heroku address: xyz.herokuapp.com
-  config.action_mailer.default_url_options = { :host => 'pitchmatters.com' }
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => ENV['S3_BUCKET_NAME'],
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-    }
-  }
 end

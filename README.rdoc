@@ -359,7 +359,8 @@
 	Finally, push your changes to git and heroku.
 
 	Add a new image and check the image url! Cool, right. You stored images in Amazon S3... :-)
-28. xx
+28. NEXT-LEVEL: STYLING WITH JQUERY:
+	
 
 
 _XX. COMMIT-ORDER:
