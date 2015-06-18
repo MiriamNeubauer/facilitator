@@ -2,6 +2,8 @@
 == Me doing our codereltics tutorial on a Mac ==
 ================================================
 
+[[ ERRORS: 25., ]]
+
 1. mkdir xxx
 2. rails new xxx
 3. open in subl .
@@ -227,121 +229,125 @@
  		 	@pin = current_user.pins.find_by(id: params[:id])
   			redirect_to pins_path, notice: "Not authorized to edit this pin" if @pin.nil?
 		end
-25. IMAGE-UPLOAD
+25. ISSUE-FIXING POSTGRES & HEROKU:
+	Issues:
+	- live data did not get saved for some reason (I checked on Heroku dataclips; DB kept staying empty)
+	- noticed HEROKU_POSTGRESQl_xx did not have a color-name yet
+		=> manually deleted that database and created a new one
+		=> new one: HEROKU_POSTGRESQL_ROSE_URL
+	- Multiple errors came up, e.g.: 
+		-> heroku run rake db:migrate did not work anymore. Command threw different errors, including:
 
-WHY does PG on Heroku not work???
+		 " PG::ConnectionBad: could not connect to server: Connection refused. Is the server running on host "localhost" (127.0.0.1) and accepting TCP/IP connections on port 5432?"
 
-TOOLTIPS???
+		 '/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432
+		 psql: could not connect to server: No such file or directory. Is the server running locally and accepting
+	     connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 
+		=> re-installed newer version of Postgres to fix issues with Postgres and Yosemite-OS, via Ryan Bates Tutorial:
+			1. brew unlink postgresql
+			2. brew install postgresql
+			3. initdb /usr/local/var/postgres
+			4. which psql
+			5. rails new blog -d postgresql (creates new rails app with postgres-databse attached)
+			gem install pg (might need to reinstall to use correct pg-version)
+			6. rake db:create:all
+			7. rake db:migrate
+			8. rails db
+			9. select * from pins;
+			10. \h to see sql-query-command, or \?, or \h SELECT 
+
+			migrating an existing database to pg:
+			- update database.yml file
+			- update gemfile
+			- run rake db:create:all
+			- migrate the data with using the gem taps => gem install taps
+
+			gem install taps
+			taps
+			taps server sqlite://db/development.sqlite3 rbates secret (existing db)
+			taps pull postgres://rbates@localhost/store_development http://rbates:secret@localhost:5000 (put existing data into this one now)
+
+		=> changed all Databases in database.yml to postgresql
+	- that brough additional issues 
+		-> whole app did no show up on Heroku anymore (red heroku error)
+		->  at some point I had different evrsions of PG running in console and on the app (9.3 and 9.4.)
+	- OTHER THINGS I TRIED:
+		=> reinstalled pg-gem some times:
+			1. gem uninstall pg
+			2. gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+		=> changed port to 5433 (and later back to 5432) in postgresql.config-file in /usr/local/var/postgres (did not help I think)
+		=> manual stop-command stopped a lot of randomly running processes
+
+	- COMMANDS:
+		#find postgres 						cd /usr/local/var/postgres/
+
+		#what is running on port 5432		sudo netstat -ant|grep 5432
+
+		#PG running?/what is running?		ps auxw | grep postgres
+
+		#config-file						egrep 'listen|port' /usr/local/var/postgres/postgresql.conf
+
+		#remove file 	 					rm -f /tmp/.s.PGSQL.5432
+
+		#start Postgres manually 			pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+		#Stop Postgres manually 			pg_ctl -D /usr/local/var/postgres stop -s -m fast
+
+		#try get PG-server running 			postgres -D /usr/local/pgsql/data
+			=> error: postgres cannot access the server configuration file "/usr/local/pgsql/data/postgresql.conf": No such file or directory
+
+		#Check if server is running 		pg_ctl -D /usr/local/var/postgres status
+
+		#Access Heroku-postgres-database	heroku pg:psql rose
+											heroku pg:ps rose
+
+		#Getting into my live-db from CLI 	heroku pg:psql --app pitchmatters HEROKU_POSTGRESQL_ROSE
+
+		#DB-Query from PG-CLI				select*from Pins;
+
+	- HELFPUL LINKS:
+	http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
+
+	- SOLUTION:
+		1. Postgres / Yosemite fix (re-installed PG)
+		2. switch all DB's to Postgres
+		3. on Heroku Databases, ROSE was set to Primary:NO => Changed settings to "Primary" --> everythign worked again!
+		=> the two different paths mentioned in error-alerts, a) var/run/postgresql while postgresql.conf was configured to b) "/tmp" was not the issue as I thought)
+
+
+26. IMAGE-UPLOAD: http://cactuslab.com/imagemagick/
+	a) identify -version
+	b) gem 'paperclip'
+	c) bundle install
+	d) https://github.com/thoughtbot/paperclip => continue from Quick Start section
+		=> add these two lines to pin.rb:
+  			1) has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  			2) validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  		=> rails generate paperclip pin image (similar to devise; adds image-attachment to pins-db)
+  		=> rake db:migrate
+  	e) Adjust views to use new DB-attribute: 
+  	=> added form-group Block to pins/_form.html.erb (form_file, c.f. Quick Start instructions)
+  	=> We also have to add the multipart: true to our file, because, we have a file upload field on our page.
+  	f) Adjust Controller:
+  	=> Next, we have to make our app work with images and that it is ok to work with images. The technical term is called strong parameters and we have to permit images to make sure that the user can upload pictures. Otherwise, only the description would be saved: in pins_controller.rb: add ":image" to private mehtod pin_params
+  	g) Try to upload a picture next and click "create". Why don't we see the picture? Because we have to show it in our show view for the pin: 
+
+
+
+_XX. COMMIT-ORDER:
 "Also, remember to commit your changes before trying to push to Heroku, because you are pushing the master branch, not the local code."
-
-Switched all db's to PG --> 
-error 1: didn;t save stuff locally
-	=> recreate db and restarting server solved it), 
-error 2: heroku showed "somwthing went wrong" and heroku run rake db:migrate does not work. shows PG::ConnectionBad: could not connect to server: Connection refused
-	Is the server running on host "localhost" (127.0.0.1) and accepting
-	TCP/IP connections on port 5432?
-	=> solution:
+	rake assets:precompile RAILS_ENV=production
+	git add --all
+	git commit -m ""
+	git push origin master
+	git push heroku master
+	heroku run rake db:migrate
 
 
-	sudo netstat -ant|grep 5432
-
-	egrep 'listen|port' /usr/local/var/postgres/postgresql.conf
-
-	ps auxw | grep post
-
-	First of all make sure that Postgres is not running:
-
-ps ax | grep postmaster
-
-	rm -f /tmp/.s.PGSQL.5432
-
-	posted on Askubuntu.com and unix.stackexchange.com
-
-	cd /usr/local/var/postgres/
-
-with Ryan Bates
-1. brew unlink postgresql
-2. brew install postgresql
-3. initdb /usr/local/var/postgres
-4. which psql
-5. rails new blog -d postgresql (creates new rails app with postgres-databse attached)
-gem install pg (might need to reinstall to use correct pg-version)
-6. rake db:create:all
-7. rake db:migrate
-8. rails db
-9. select * from pins;
-10. \h to see sql-query-command, or \?, or \h SELECT 
-
-migrating an existing database to pg:
-- update database.yml file
-- update gemfile
-- run rake db:create:all
-- migrate the data with using the gem taps => gem install taps
-
-gem install taps
-taps
-taps server sqlite://db/development.sqlite3 rbates secret (existing db)
-taps pull postgres://rbates@localhost/store_development http://rbates:secret@localhost:5000 (put existing data into this one now)
-
-
-
-new error to look at:
-'/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432
-psql: could not connect to server: No such file or directory
-	Is the server running locally and accepting
-	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
-➜  ~  
-
-
-trying to get PG-server running:
-	postgres -D /usr/local/pgsql/data
-	=> error: postgres cannot access the server configuration file "/usr/local/pgsql/data/postgresql.conf": No such file or director
-Tipp: Run this command to manually start the server:
-	pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-Check what is runningL
-	ps auxwww | grep postgres
-Check if server is running:
-	pg_ctl -D /usr/local/var/postgres status
-
-Start manually:
-
-pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
-
-Stop manually:
-
-pg_ctl -D /usr/local/var/postgres stop -s -m fast
-
-SOLUTION: 
-http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
-
-changed port back to 5433 in postgresql.config-file in /usr/local/var/postgres, and used ,manual stop-command. 
-then ran command again to display what is running postgres and on port 5432 - and the random stuff was GONE!! YAYY
-ANd opening Postgres worked again via the search bar!!
-PROBLEM: heroku run rake db:migrate still does not work BUT error is shorter!!
-
-read on herpoku, tried: 
-	heroku pg:psql rose
-	heroku pg:ps rose
-
-reinstalled pg-gem some times.
-gem uninstall pg
-gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-
-at some point I had different evrsions of OG running in console and on the app (9.3 and 9.4.)
-
-LOOKS GOOD NOWL
-➜  pinmazing-mcn git:(master) ✗ rake db:create:all
-pitchmatters_development already exists
-pitchmatters_test already exists
-This task only modifies local databases. pitchmatters_production is on a remote host.
-
-changed socket-directories to var/run/prostgresql (but did not work, could not create such a directory in runfolder <- permission denied)
-
-ERRORS:
-1. no pid-file (b/c I removed it)
-2. heroku run rake db:migrate does not work, asks if var/run/postgresql accepts connections. in postgresql.conf is configured to /tmp
-
+_YY EXERCISES/EXTRAS:
+- try to download a live-databas (pull?)
+- TOOLTIPS???
 
 
 
