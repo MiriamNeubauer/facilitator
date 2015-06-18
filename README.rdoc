@@ -340,6 +340,26 @@
   	h) Whenever you create a pin, the picture will be saved in public/system/ (check that if you like). The issue is that when you upload your work to github, also the pictures are getting uploaded. This does not make sense, as they are huge and are not relevant for your code:
   	=> add them to the .gitignore-file
   	=> also added log, tmp, and DS_Store. Those are also irrelevant for Github.
+27. AMASON S3 Image-Upload:
+	- Heroku picture upload up to 50MB (50-100 images)
+	- Fun fact: If you know dropbox, they store all your data in Amazon S3, too and do not do the storing themselves. For you it looks like your files are all in your dropbox. In fact they are stored at Amazon S3 as dropbox saves them there without showing you.
+	a) add aws-gem: https://github.com/aws/aws-sdk-ruby, https://devcenter.heroku.com/articles/paperclip-s3
+	b) Specify AWS configuration variables in config/environments/production.rb: 
+	c) Creaet AWS account: You might have guessed that S3_BUCKET_NAME and the other two will be sort of your way of authentification with Amazon S3. To get them, we have to sign up with AWS. Go to http://aws.amazon.com/.
+	d) In AWS, create an S3 bucket and grant permission to everyone in 'Actions->Permissions'.
+	e) Setting the keys for heroku in your terminal: Important is that you will only get them once and I also do not recommend to paste them anywhere else then what we are going to do next. To be more explicit: The worst thing you can do is, put them directly in your config/environments/production.rb. With the next git push, those keys will be available to everyone and there are cases where accounts got hacked and people had to pay thousands of dollars.
+	Again, only paste the keys into the CLI - nowhere else:
+		heroku config
+		heroku config:set S3_BUCKET=pitchmatters
+		heroku config:set AWS_ACCESS_KEY_ID=***GET FROM AMAZON AWS***
+		heroku config:set AWS_SECRET_ACCESS_KEY=***GET FROM AMAZON AWS***
+		heroku config
+	Heroku config shows you your configurations variables. After adding the AWS variables, they will also show up, when you type in heroku config after adding them. Why did we do this? Well, your config/environments/production.rb can access them on heroku then.
+
+	Finally, push your changes to git and heroku.
+
+	Add a new image and check the image url! Cool, right. You stored images in Amazon S3... :-)
+28. xx
 
 
 _XX. COMMIT-ORDER:
@@ -357,6 +377,7 @@ _YY EXERCISES/EXTRAS:
 - TOOLTIPS???
 - Make error-pages pretty
 - edit bootstrap alert messages such as "Pin was created successfully"
+- rename "pitchmatters" everywhere!!
 
 ========================
 in rails c:
