@@ -324,6 +324,7 @@ reinstalled pg-gem some times.
 gem uninstall pg
 gem install pg -- --with-pg-config=/usr/local/bin/pg_config
 
+at some point I had different evrsions of OG running in console and on the app (9.3 and 9.4.)
 
 LOOKS GOOD NOWL
 ➜  pinmazing-mcn git:(master) ✗ rake db:create:all
