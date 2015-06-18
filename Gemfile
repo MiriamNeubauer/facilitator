@@ -31,4 +31,3 @@ end
 # gem 'capistrano-rails', group: :development	# Use Capistrano for deployment
 
 # gem 'debugger', group: [:development, :test]	# Use debugger
-
