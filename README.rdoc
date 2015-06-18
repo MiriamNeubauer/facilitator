@@ -320,6 +320,10 @@ then ran command again to display what is running postgres and on port 5432 - an
 ANd opening Postgres worked again via the search bar!!
 PROBLEM: heroku run rake db:migrate still does not work BUT error is shorter!!
 
+read on herpoku, tried: 
+	heroku pg:psql rose
+	heroku pg:ps rose
+
 reinstalled pg-gem some times.
 gem uninstall pg
 gem install pg -- --with-pg-config=/usr/local/bin/pg_config
