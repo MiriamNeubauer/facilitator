@@ -336,6 +336,12 @@ pitchmatters_development already exists
 pitchmatters_test already exists
 This task only modifies local databases. pitchmatters_production is on a remote host.
 
+changed socket-directories to var/run/prostgresql (but did not work, could not create such a directory in runfolder <- permission denied)
+
+ERRORS:
+1. no pid-file (b/c I removed it)
+2. heroku run rake db:migrate does not work, asks if var/run/postgresql accepts connections. in postgresql.conf is configured to /tmp
+
 
 
 
