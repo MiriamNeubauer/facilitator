@@ -235,14 +235,101 @@ TOOLTIPS???
 
 "Also, remember to commit your changes before trying to push to Heroku, because you are pushing the master branch, not the local code."
 
+Switched all db's to PG --> 
+error 1: didn;t save stuff locally
+	=> recreate db and restarting server solved it), 
+error 2: heroku showed "somwthing went wrong" and heroku run rake db:migrate does not work. shows PG::ConnectionBad: could not connect to server: Connection refused
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+	=> solution:
+
+
+	sudo netstat -ant|grep 5432
+
+	egrep 'listen|port' /usr/local/var/postgres/postgresql.conf
+
+	ps auxw | grep post
+
+	First of all make sure that Postgres is not running:
+
+ps ax | grep postmaster
+
+	rm -f /tmp/.s.PGSQL.5432
+
+	posted on Askubuntu.com and unix.stackexchange.com
+
+	cd /usr/local/var/postgres/
+
+with Ryan Bates
+1. brew unlink postgresql
+2. brew install postgresql
+3. initdb /usr/local/var/postgres
+4. which psql
+5. rails new blog -d postgresql (creates new rails app with postgres-databse attached)
+gem install pg (might need to reinstall to use correct pg-version)
+6. rake db:create:all
+7. rake db:migrate
+8. rails db
+9. select * from pins;
+10. \h to see sql-query-command, or \?, or \h SELECT 
+
+migrating an existing database to pg:
+- update database.yml file
+- update gemfile
+- run rake db:create:all
+- migrate the data with using the gem taps => gem install taps
+
+gem install taps
+taps
+taps server sqlite://db/development.sqlite3 rbates secret (existing db)
+taps pull postgres://rbates@localhost/store_development http://rbates:secret@localhost:5000 (put existing data into this one now)
 
 
 
+new error to look at:
+'/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432
+psql: could not connect to server: No such file or directory
+	Is the server running locally and accepting
+	connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
+➜  ~  
 
 
+trying to get PG-server running:
+	postgres -D /usr/local/pgsql/data
+	=> error: postgres cannot access the server configuration file "/usr/local/pgsql/data/postgresql.conf": No such file or director
+Tipp: Run this command to manually start the server:
+	pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+Check what is runningL
+	ps auxwww | grep postgres
+Check if server is running:
+	pg_ctl -D /usr/local/var/postgres status
+
+Start manually:
+
+pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+
+Stop manually:
+
+pg_ctl -D /usr/local/var/postgres stop -s -m fast
+
+SOLUTION: 
+http://stackoverflow.com/questions/7975556/how-to-start-postgresql-server-on-mac-os-x
+
+changed port back to 5433 in postgresql.config-file in /usr/local/var/postgres, and used ,manual stop-command. 
+then ran command again to display what is running postgres and on port 5432 - and the random stuff was GONE!! YAYY
+ANd opening Postgres worked again via the search bar!!
+PROBLEM: heroku run rake db:migrate still does not work BUT error is shorter!!
+
+reinstalled pg-gem some times.
+gem uninstall pg
+gem install pg -- --with-pg-config=/usr/local/bin/pg_config
 
 
-
+LOOKS GOOD NOWL
+➜  pinmazing-mcn git:(master) ✗ rake db:create:all
+pitchmatters_development already exists
+pitchmatters_test already exists
+This task only modifies local databases. pitchmatters_production is on a remote host.
 
 
 
