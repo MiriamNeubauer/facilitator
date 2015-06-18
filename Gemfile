@@ -12,6 +12,7 @@ gem 'sass-rails', '~> 4.0.3'					# Use SCSS for stylesheets
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'pg'
+gem 'paperclip'
 
 group :development, :test do
 	gem 'spring'								# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
