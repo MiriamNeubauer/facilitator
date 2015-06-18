@@ -1,11 +1,20 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
 
-<p>
-  <strong>Description:</strong>
-  <%= @pin.description %>
-</p>
+	<div class="panel-body">
+		<%= link_to 'Back', pins_path %>
+	</div>
 
-<% if @pin.user == current_user%>
-	<%= link_to 'Edit', edit_pin_path(@pin) %>
-<% end %>
-<%= link_to 'Back', pins_path %>
+	<div class="panel-heading center">
+		<%= image_tag @pin.image.url(:medium) %>
+		<!-- link is from https://github.com/thoughtbot/paperclip -->
+	</div>
+
+	<div class="panel-body user"> </div>
+		<%= @pin.user.name if @pin.user %>
+		<%= @pin.description %>
+		<% if @pin.user == current_user%>
+			<%= link_to 'Edit', edit_pin_path(@pin) %>
+		<% end %>
+	</div>
+
+</div>	

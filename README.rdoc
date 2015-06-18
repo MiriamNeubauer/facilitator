@@ -331,8 +331,15 @@
   	=> We also have to add the multipart: true to our file, because, we have a file upload field on our page.
   	f) Adjust Controller:
   	=> Next, we have to make our app work with images and that it is ok to work with images. The technical term is called strong parameters and we have to permit images to make sure that the user can upload pictures. Otherwise, only the description would be saved: in pins_controller.rb: add ":image" to private mehtod pin_params
-  	g) Try to upload a picture next and click "create". Why don't we see the picture? Because we have to show it in our show view for the pin: 
-
+  	g) Try to upload a picture next and click "create". Why don't we see the picture? Because we have to show it in our show view for the pin, in views/pins/show.html.erb:
+  	=> bootstrap-panels
+  	=> We removed the notice at the top, because we already have flash messages. We then added an image tag with the picture.
+  	h) Next, let's show all created pins visually on the pins overview listings page, and make the pictures linking to the show pages for each pin (on ....com/pins):
+  	=> in pins/index.html.erb:
+  	Added table headers "Image" and "Name"; in tbody added link_to image-url; --> imags still next to each other
+  	h) Whenever you create a pin, the picture will be saved in public/system/ (check that if you like). The issue is that when you upload your work to github, also the pictures are getting uploaded. This does not make sense, as they are huge and are not relevant for your code:
+  	=> add them to the .gitignore-file
+  	=> also added log, tmp, and DS_Store. Those are also irrelevant for Github.
 
 
 _XX. COMMIT-ORDER:
@@ -348,6 +355,12 @@ _XX. COMMIT-ORDER:
 _YY EXERCISES/EXTRAS:
 - try to download a live-databas (pull?)
 - TOOLTIPS???
+- Make error-pages pretty
+- edit bootstrap alert messages such as "Pin was created successfully"
+
+========================
+in rails c:
+#remove db-entries:		Pin.first.destroy
 
 
 

@@ -5,13 +5,13 @@
 /*------------------------*/
 
 
-$body-bg: 						#C86EDF; /*clouds from flatuicolors. */
+$body-bg: 						#D7D7D7; /*clouds from flatuicolors. */
 /* does not work to write @body-bg: #ecf0f1 because bootstrap withrks with less and not with sass, and less variables are qith an @ sign. in sass you need to write $ instead if @ */
 $font-family-sans-serif:		'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $navbar-height:					45px;
 $navbar-default-bg:				white;
-$navbar-default-brand-color:	#C643FC;
-$brand-primary:					#C643FC;
+$navbar-default-brand-color:	#5856D6;
+$brand-primary:					#5856D6;
 
 
 
@@ -38,7 +38,7 @@ $brand-primary:					#C643FC;
 
 .red {
 	font-weight: bold;
-	color: #C643FC !important; //important means 
+	color: #5856D6 !important; //important means 
 	//it is dominant to any style coming from somewhere else 
 	// like from a bootstrap standard. can't be overwritten.
 }
