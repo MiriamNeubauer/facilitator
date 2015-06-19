@@ -368,7 +368,9 @@
 	Why? To display images because image path is incorect, 2 variables need to switch place in the url, and paperclip.rb takes care of that.
 
 
-28. NEXT-LEVEL: STYLING WITH JQUERY:
+28. NEXT-LEVEL: STYLING WITH JQUERY, INTERNATIUONALIZATION, COMMENTS
+	a) changed root-route from pages#home to pins#index, and added singup-and-loginbutton to bottom of it via creating the partial pages/_signup.html.erb by just renaming pages/home.html.erb cause we don;t need that anymore anyway
+	b) created
 	
 
 
@@ -383,6 +385,7 @@ _XX. COMMIT-ORDER:
 
 
 _YY EXERCISES/EXTRAS:
+- pitv ENV variables off github!! accidentally pushed them once at 10:30 pm on June 18th
 - try to download a live-databas (pull?)
 - TOOLTIPS???
 - Make error-pages pretty
@@ -395,6 +398,7 @@ in rails c:
 
 =======================
 http://ruby.awsblog.com/
+
 
 
 

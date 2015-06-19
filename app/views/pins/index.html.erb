@@ -38,4 +38,5 @@
       <%= link_to 'New Pin', new_pin_path %>
     <% end %>
   </div>
+  <%= render 'pages/signup' unless user_signed_in?%>
 </div>

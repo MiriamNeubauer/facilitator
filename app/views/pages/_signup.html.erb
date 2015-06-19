@@ -1,0 +1,11 @@
+<%# if !user_signed_in? %> <!-- don't need it anymore because partial only gets rendered if user not signed in anyway -->
+
+<div class="panel center">
+    <h3>Join the fun and add some pins</h3>
+    <p>
+    	<%= link_to "Login", new_user_session_path, class:"btn btn-default btn-lg" %>
+    	<%= link_to "Signup", new_user_registration_path, class:"btn btn-primary btn-lg" %>
+    </p>
+</div>
+
+<%# end %>
