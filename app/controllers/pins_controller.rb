@@ -10,13 +10,13 @@ class PinsController < ApplicationController
   end
 
   def show
-    respond_with(@pin)
+    respond_with(@pins)
   end
 
   def new
     # @pin = Pin.new
     @pin = current_user.pins.build
-    respond_with(@pin)
+    respond_with(@pins)
   end
 
   def edit
@@ -30,7 +30,7 @@ class PinsController < ApplicationController
     else
       render action: 'new'
     end
-    # respond_with(@pin)
+    respond_with(@pins)
   end
 
   def update
@@ -39,13 +39,13 @@ class PinsController < ApplicationController
     else
       render action: 'edit'
     end
-    respond_with(@pin)
+    respond_with(@pins)
   end
 
   def destroy
     @pin.destroy
     redirect_to pins_url
-    respond_with(@pin)
+    respond_with(@pins)
   end
 
   private
