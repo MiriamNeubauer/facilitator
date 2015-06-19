@@ -30,7 +30,7 @@ class PinsController < ApplicationController
     else
       render action: 'new'
     end
-    respond_with(@pins)
+    #respond_with(@pins)
   end
 
   def update
