@@ -22,3 +22,4 @@
 /config/environments/production.rb
 /config/*.yml
 /*.log
+/README.rdoc
