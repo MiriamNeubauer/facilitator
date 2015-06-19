@@ -3,9 +3,9 @@ Rails.application.configure do
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
-      :bucket => ENV['pitchmatters'],
-      :access_key_id => ENV['AKIAIF7E6J6CXGUMIOKA'],
-      :secret_access_key => ENV['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']
+      :bucket => 'pitchmatters',
+      :access_key_id => 'AKIAIF7E6J6CXGUMIOKA',
+      :secret_access_key => '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'
     }
   }
   # Settings specified here will take precedence over those in config/application.rb.
