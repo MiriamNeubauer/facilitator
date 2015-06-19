@@ -359,6 +359,15 @@
 	Finally, push your changes to git and heroku.
 
 	Add a new image and check the image url! Cool, right. You stored images in Amazon S3... :-)
+	f) specify <2.0 for aws-sdk-Gem because later versions are unstable
+	g) create /initializers/paperclip.rb:
+	# We are actually setting this to 's3_domain_url', 
+	# so it's not a placeholder for something else. 
+	Paperclip::Attachment.default_options[:url] = ':s3_domain_url'
+	Paperclip::Attachment.default_options[:path] = '/:class/:attachment/:id_partition/:style/:filename'
+	Why? To display images because image path is incorect, 2 variables need to switch place in the url, and paperclip.rb takes care of that.
+
+
 28. NEXT-LEVEL: STYLING WITH JQUERY:
 	
 
