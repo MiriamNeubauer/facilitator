@@ -372,6 +372,8 @@
 	a) changed root-route from pages#home to pins#index, and added singup-and-loginbutton to bottom of it via creating the partial pages/_signup.html.erb by just renaming pages/home.html.erb cause we don;t need that anymore anyway
 	b) created
 	
+29. accidentally committed my secret AWS keys to Github:
+	https://rtyley.github.io/bfg-repo-cleaner/
 
 
 _XX. COMMIT-ORDER:
