@@ -362,9 +362,6 @@
 28. NEXT-LEVEL: STYLING WITH JQUERY:
 	
 
-- put env's back into production.rb
-- fix "missing bucket option" 
-
 
 _XX. COMMIT-ORDER:
 "Also, remember to commit your changes before trying to push to Heroku, because you are pushing the master branch, not the local code."
@@ -386,6 +383,9 @@ _YY EXERCISES/EXTRAS:
 ========================
 in rails c:
 #remove db-entries:		Pin.first.destroy
+
+=======================
+http://ruby.awsblog.com/
 
 
 
