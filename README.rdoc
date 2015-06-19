@@ -363,7 +363,6 @@
 	
 
 - put env's back into production.rb
-- take @pins out again of controller
 - fix "missing bucket option" 
 
 

@@ -13,7 +13,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'pg'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 group :development, :test do
 	gem 'spring'								# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
