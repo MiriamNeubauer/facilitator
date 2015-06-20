@@ -2,8 +2,8 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'pitchmatters.com' }
   config.paperclip_defaults = {
     :storage => :s3,
-    :bucket => 'pitchmatters',
     :s3_credentials => {
+      :bucket => 'pitchmatters',
       :access_key_id => 'AKIAJCIDZZRRWGWPQ7PQ',
       :secret_access_key => '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'
     }
