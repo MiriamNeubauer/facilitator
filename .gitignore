@@ -18,9 +18,3 @@
 /log/*.log
 /tmp
 .DS_Store
-
-/config/environments/production.rb
-/config/*.yml
-/*.log
-/README.rdoc
-/config/initializers/devise.rb
