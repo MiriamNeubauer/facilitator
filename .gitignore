@@ -18,13 +18,6 @@
 /log/*.log
 /tmp
 
-<<<<<<< HEAD
 # Ignore application configuration
 /config/application.yml
-=======
-/config/environments/production.rb
-/config/*.yml
-/*.log
-/README.rdoc
-/config/initializers/devise.rb
->>>>>>> 8f1fd8dc78d0475185ec2a6f57ca6fce475d6478
+
