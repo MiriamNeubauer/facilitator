@@ -5,7 +5,8 @@ gem 'rails', '4.1.8'							# Bundle edge Rails instead: gem 'rails', github: 'ra
 gem 'uglifier', '>= 1.3.0'						# Use Uglifier as compressor for JavaScript assets
 gem 'coffee-rails', '~> 4.0.0'					# Use CoffeeScript for .js.coffee assets and views
 gem 'jquery-rails'								# Use jquery as the JavaScript library
-gem 'turbolinks'								# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+gem 'jquery-turbolinks'								# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'jbuilder', '~> 2.0'						# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'bootstrap-sass', '~> 3.3.4'				#Bottstrap frontend framework to make page pretty
 gem 'sass-rails', '~> 4.0.3'					# Use SCSS for stylesheets
@@ -15,6 +16,7 @@ gem 'pg'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'figaro'
+gem 'masonry-rails'
 
 group :development, :test do
 	gem 'spring'								# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
