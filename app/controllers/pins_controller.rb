@@ -39,13 +39,13 @@ class PinsController < ApplicationController
     else
       render action: 'edit'
     end
-    respond_with(@pin)
+    # respond_with(@pin)
   end
 
   def destroy
     @pin.destroy
     redirect_to pins_url
-    respond_with(@pin)
+    # respond_with(@pin)
   end
 
   private
