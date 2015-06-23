@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+resources :comments
+
+resources :pins do
+    resources :comments
+  end
+
   resources :pins
 
   devise_for :users

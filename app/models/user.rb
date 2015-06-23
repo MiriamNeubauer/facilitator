@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :pins, dependent: :destroy #meaning pins will be deleted when user account is deleted
-
+  has_many :comments, dependent: :destroy
 
 end

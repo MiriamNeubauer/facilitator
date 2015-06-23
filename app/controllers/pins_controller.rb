@@ -10,6 +10,8 @@ class PinsController < ApplicationController
   end
 
   def show
+    @comments = Comment.all
+    @pin = Pin.find(params[:id])
     respond_with(@pin)
   end
 
