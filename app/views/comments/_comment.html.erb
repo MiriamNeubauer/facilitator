@@ -1,0 +1,35 @@
+<!-- <div class="panel-body">
+  <%# @pin.comments.each do |comment| %> 
+    <div class="panel-body"> 
+		 <%= comment.content %>
+		 <%= comment.user.name %> 
+     <%# if current_user && comment.user == current_user %> 
+       <%#= link_to 'Edit', edit_pin_comment_path(@pin, comment.id) %>
+       <%#= link_to 'Delete', pin_comment_path(@pin, comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+     <%#end%> <hr>
+    </div>
+  <%# end %>
+</div> -->
+
+<!-- QUESTION: is div_for like .each do but with putting every result into a separate div?? -->
+<%= div_for(comment) do %>
+  <!-- 1. Name of person who posted comment -->
+  <%= comment.user.name if comment.user %>
+  <!-- 2. How long ago the comment was posted + Content of comment in new line -->
+  <p>
+    <strong>Posted <%= time_ago_in_words(comment.created_at) %> ago</strong> <br>
+    <%= h(comment.content) %>
+  </p>
+
+  <!-- Optional 3 for logged in users: Edit & Delete functions -->
+  <% if current_user && comment.user == current_user %>
+    <div class="edit">
+      <%= link_to edit_pin_comment_path(@pin, comment.id) do %>
+        <span class="glyphicon glyphicon-edit"></span> Edit 
+      <%end%>
+      <%= link_to pin_comment_path(@pin, comment.id), method: :delete, data: { confirm: "Are you sure?"} do%>
+        <span class="glyphicon glyphicon-trash"></span> Delete
+      <%end%>
+    </div>
+  <% end %>
+<%end%>

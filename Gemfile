@@ -17,6 +17,7 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'figaro'
 gem 'masonry-rails'
+gem 'simple_form'								#alternative to formtastic: more leightweight, doe snot require own stylesheet
 
 group :development, :test do
 	gem 'spring'								# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

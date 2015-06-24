@@ -18,21 +18,19 @@
 		<% end %>
 	</div> <hr>
 
-  <h4>Comments</h4>  
-	<div class="panel-body">
-    <% @pin.comments.each do |comment| %> 
-      <div class="panel-body"> 
-			 <%= comment.content %>
-			 <%= comment.user.name %> 
-       <% if current_user && comment.user == current_user %> 
-         <%= link_to 'Edit', edit_pin_comment_path(@pin, comment.id) %>
-         <%= link_to 'Delete', pin_comment_path(@pin, comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
-       <%end%> <hr>
-      </div>
-    <% end %>
-	</div> <hr>
-	<div class="panel-body" style="text-align:right">
-		<%= link_to 'Comment', new_pin_comment_path(@pin) %> 
-	</div>
+  <div class="panel-body user">
+    <h4>Comments</h4>  
+    <!-- Section1: Showcasing a comment -->
+    <div id="comments">
+      <%= render :partial => @pin.comments %>
+    </div>
+    <!-- Section2: Adding a new comment -->
+    <%= simple_form_for [@pin, Comment.new] do |f| %>
+      <p>
+        <%= f.input :content, :label => "New Comment", as: :text, input_html:{rows: "3"}%>
 
+      </p>
+      <p> <%= f.submit "Add Comment", class: "btn btn-primary" %></p>
+    <%end%>
+  </div>
 </div>	
