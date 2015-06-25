@@ -1,5 +1,77 @@
 // Place all the styles related to the Comments controller here.
 
+.userbox{
+  font-family: 'Helvetica',sans-serif;
+  font-weight: bold;
+  border-top: 1px solid #e7e7e7;
+  color: #777;
+ }
+
+ .user {
+  line-height: 15px;
+  padding: 10px 12px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  border-radius: 0 0 6px 6px;
+  display: block;
+}
+
+.name {
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  color: #717171;
+  display: block;
+}
+
+.timeago{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #999;
+  font-size: 13px;
+  font-weight: normal;
+  display: inline;
+}
+
+.description {
+  overflow: hidden;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #b7b7b7;
+}
+
+.grav{
+  position: relative;
+  border-radius: 50%;
+  float: left;
+  height: 30px;
+  margin-right: 5px;
+  width: 30px;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+}
+
+.gravatar {
+  overflow: auto;
+  margin-top: 10px;
+  position: relative;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 1px 10px 1px 1px;
+}
+
+.edit {
+	float: right;
+}
+
+
+
+
 // .simple_form label {
 //   float: left;
 //   width: 100px;

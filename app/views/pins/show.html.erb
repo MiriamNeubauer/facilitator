@@ -13,24 +13,21 @@
 		<%= @pin.user.name if @pin.user %>
 		<%= @pin.description %>
 		<% if @pin.user == current_user%>
-			<%= link_to 'Edit', edit_pin_path(@pin) %>
-      <%= link_to 'Delete', pin_path(@pin), method: :delete, data: { confirm: 'Are you sure?'}%>
+			<%= link_to edit_pin_path(@pin) do %> <span class="glyphicon glyphicon-edit red"></span> Edit <%end%>
+      <%= link_to pin_path(@pin), method: :delete, data: { confirm: 'Are you sure?'} do%> <span class="glyphicon glyphicon-trash red"></span> Delete <%end%>
 		<% end %>
-	</div> <hr>
+	</div>
 
-  <div class="panel-body user">
-    <h4>Comments</h4>  
-    <!-- Section1: Showcasing a comment -->
-    <div id="comments">
-      <%= render :partial => @pin.comments %>
-    </div>
-    <!-- Section2: Adding a new comment -->
-    <%= simple_form_for [@pin, Comment.new] do |f| %>
-      <p>
-        <%= f.input :content, :label => "New Comment", as: :text, input_html:{rows: "3"}%>
-
-      </p>
-      <p> <%= f.submit "Add Comment", class: "btn btn-primary" %></p>
-    <%end%>
+  <!-- Section1: Showcasing a comment -->
+  <div id="comments">
+    <%= render :partial => @pin.comments %>
   </div>
+  <!-- Section2: Adding a new comment -->
+  <%= simple_form_for [@pin, Comment.new] do |f| %>
+    <p>
+      <%= f.input :content, :label => "New Comment", as: :text, input_html:{rows: "3"}%>
+    </p>
+    <p> <%= f.submit "Add Comment", class: "btn btn-primary" %></p>
+  <%end%>
+
 </div>	

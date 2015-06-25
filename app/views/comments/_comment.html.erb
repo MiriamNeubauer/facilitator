@@ -13,23 +13,33 @@
 
 <!-- QUESTION: is div_for like .each do but with putting every result into a separate div?? -->
 <%= div_for(comment) do %>
-  <!-- 1. Name of person who posted comment -->
-  <%= comment.user.name if comment.user %>
-  <!-- 2. How long ago the comment was posted + Content of comment in new line -->
-  <p>
-    <strong>Posted <%= time_ago_in_words(comment.created_at) %> ago</strong> <br>
-    <%= h(comment.content) %>
-  </p>
+  <div class="userbox">
+    <div class="panel-body user">
+      <div class="grav">
+          <%= gravatar_for comment.user %>
+      </div>
+      <div class="name">
+        <!-- 1. Name of person who posted comment -->
+        <%= comment.user.name if comment.user %>
+      <!-- 2. How long ago the comment was posted + Content of comment in new line -->
+        <p class="timeago">
+          - posted <%= time_ago_in_words(comment.created_at) %> ago </p>
+      </div>
+      <div class="description">
+        <%= h(comment.content) %>
+      </div>
 
-  <!-- Optional 3 for logged in users: Edit & Delete functions -->
-  <% if current_user && comment.user == current_user %>
-    <div class="edit">
-      <%= link_to edit_pin_comment_path(@pin, comment.id) do %>
-        <span class="glyphicon glyphicon-edit"></span> Edit 
-      <%end%>
-      <%= link_to pin_comment_path(@pin, comment.id), method: :delete, data: { confirm: "Are you sure?"} do%>
-        <span class="glyphicon glyphicon-trash"></span> Delete
-      <%end%>
+      <!-- Optional 3 for logged in users: Edit & Delete functions -->
+      <% if current_user && comment.user == current_user %>
+        <div class="edit">
+          <%= link_to edit_pin_comment_path(@pin, comment.id) do %>
+            <span class="glyphicon glyphicon-edit red"></span> Edit 
+          <%end%>
+          <%= link_to pin_comment_path(@pin, comment.id), method: :delete, data: { confirm: "Are you sure?"} do%>
+            <span class="glyphicon glyphicon-trash red"></span> Delete
+          <%end%>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 <%end%>

@@ -14,9 +14,10 @@ $navbar-default-brand-color:	#5856D6;
 $brand-primary:					#5856D6;
 
 
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+
 
 /*--------------------------------------------*/
 /*   BRAND LOGO CENTERED + NICER NAVBAR   */
