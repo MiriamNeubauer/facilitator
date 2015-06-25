@@ -22,21 +22,25 @@
   <div id="comments">
     <%= render :partial => @pin.comments %>
   </div>
-  <!-- Section2: Adding a new comment -->
+
+  <!-- Section2: Adding a new comment --> 
   <div class="userbox">
     <div class="panel-body user">
-      <div class="grav">
-          <%= gravatar_for current_user %>
-      </div>
-      <div class="description">
-        <%= simple_form_for [@pin, Comment.new] do |f| %>
-          <p>
-            <%= f.input :content, label: false, as: :text, input_html:{rows: "3", class: 'contentbox'}%>
-          </p>
-          <p> <%= f.submit "Add Comment", class: "btn btn-primary" %></p>
-        <%end%>
-      </div>
+      <% if current_user.present? %>
+        <div class="grav">
+          <%= gravatar_for current_user if current_user.present?%>
+        </div>
+        <div class="name">
+          <%= current_user.name if current_user %>
+        <div class="description">
+          <%= render 'comments/form'%>
+        </div>
+      <%else%>
+        <div class="name">
+          <%= link_to 'Login', new_user_session_path %> or 
+          <%= link_to 'Signup', new_user_registration_path%> to comment
+        </div>
+      <%end%>
     </div>
   </div>
-
 </div>	
