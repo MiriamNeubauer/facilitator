@@ -1,1 +1,1 @@
-www.facilitator.herokuapp.com
+www.getequipmentnow.herokuapp.com
