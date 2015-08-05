@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { :host => 'pitchmatters.com' }
+  config.action_mailer.default_url_options = { :host => 'getequipmentnow.herokuapp.com' }
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
